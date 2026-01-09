@@ -24,7 +24,7 @@ body {
 .card {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
-    padding: clamp(20px, 5vw, 40px);
+    padding: clamp(15px, 4vw, 30px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
 }
@@ -32,7 +32,7 @@ body {
 h1 {
     text-align: center;
     color: #333;
-    margin-bottom: clamp(20px, 4vw, 30px);
+    margin-bottom: clamp(15px, 3vw, 20px);
     font-size: clamp(24px, 5vw, 28px);
     font-weight: 600;
 }
@@ -40,8 +40,8 @@ h1 {
 .input-section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: clamp(20px, 4vw, 30px);
+    gap: 10px;
+    margin-bottom: clamp(15px, 3vw, 20px);
 }
 
 label {
@@ -64,7 +64,7 @@ label {
 }
 
 input[type="time"] {
-    padding: 12px 16px;
+    padding: 10px 14px;
     border: 2px solid #e0e0e0;
     border-radius: 10px;
     font-size: 16px;
@@ -89,7 +89,7 @@ input[type="time"]:focus {
 }
 
 button {
-    padding: 12px 24px;
+    padding: 10px 20px;
     border: none;
     border-radius: 10px;
     font-size: 16px;
@@ -117,8 +117,8 @@ button:active {
 .stats-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: clamp(12px, 2vw, 16px);
-    margin-bottom: clamp(20px, 4vw, 24px);
+    gap: clamp(10px, 2vw, 12px);
+    margin-bottom: clamp(15px, 3vw, 18px);
     animation: slideIn 0.5s ease;
 }
 
@@ -135,7 +135,7 @@ button:active {
 
 .stat-card {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: clamp(16px, 3vw, 24px);
+    padding: clamp(12px, 2vw, 18px);
     border-radius: 15px;
     text-align: center;
     transition: all 0.3s ease;
@@ -144,7 +144,7 @@ button:active {
 
 .stat-card-half {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: clamp(16px, 3vw, 24px);
+    padding: clamp(12px, 2vw, 18px);
     border-radius: 15px;
     text-align: center;
     transition: all 0.3s ease;
@@ -166,7 +166,7 @@ button:active {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .stat-value {
@@ -183,7 +183,7 @@ button:active {
     background: #e8e8e8;
     border-radius: 10px;
     overflow: hidden;
-    margin-top: 12px;
+    margin-top: 8px;
 }
 
 .progress-fill {
@@ -196,7 +196,7 @@ button:active {
 .elapsed-bar {
     height: 6px;
     background: #e8f5ff;
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 .elapsed-fill {
@@ -206,7 +206,7 @@ button:active {
 .remaining-bar {
     height: 6px;
     background: #ffe8f5;
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 .remaining-fill {
@@ -215,9 +215,9 @@ button:active {
 
 .overall-progress {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    padding: 20px;
+    padding: 15px;
     border-radius: 15px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     animation: slideIn 0.5s ease;
 }
 
@@ -227,7 +227,7 @@ button:active {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .progress-bar-container {
@@ -253,7 +253,7 @@ button:active {
 
 .activity-section {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-    padding: clamp(20px, 4vw, 30px);
+    padding: clamp(15px, 3vw, 20px);
     border-radius: 15px;
     border: 2px solid rgba(102, 126, 234, 0.1);
     animation: slideIn 0.5s ease;
@@ -265,14 +265,14 @@ button:active {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     text-align: center;
 }
 
 .footer {
     text-align: center;
-    margin-top: 24px;
-    padding-top: 16px;
+    margin-top: 16px;
+    padding-top: 12px;
     border-top: 1px solid #eee;
     font-size: 12px;
     color: #999;
@@ -285,7 +285,7 @@ button:active {
 
 .repo-link {
     font-size: 11px;
-    margin-top: 4px;
+    margin-top: 2px;
 }
 
 .repo-link a {
