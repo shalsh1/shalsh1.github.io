@@ -38,7 +38,8 @@ function displayTracking() {
     document.getElementById('progressBar').style.display = 'block';
     document.getElementById('resetBtn').style.display = 'block';
     document.getElementById('inputSection').style.display = 'none';
-    document.getElementById('actionButtons').style.display = 'flex';
+    document.getElementById('activitySection').style.display = 'none';
+    document.getElementById('activityToggleBtn').style.display = 'block';
 }
 
 function updateStats() {
@@ -106,6 +107,9 @@ function updateStats() {
             card.style.background = 'linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%)';
         });
         
+        // Show activity section when time remaining is 0
+        document.getElementById('activitySection').style.display = 'block';
+        
         // Send notification once when shift ends
         if (!shiftEndNotified && 'Notification' in window && Notification.permission === 'granted') {
             new Notification('Work Shift Ended! 🎉', {
@@ -130,7 +134,8 @@ function resetTracker() {
     document.getElementById('statsSection').style.display = 'none';
     document.getElementById('progressBar').style.display = 'none';
     document.getElementById('resetBtn').style.display = 'none';
-    document.getElementById('actionButtons').style.display = 'none';
+    document.getElementById('activitySection').style.display = 'none';
+    document.getElementById('activityToggleBtn').style.display = 'none';
     document.getElementById('inputSection').style.display = 'flex';
     document.getElementById('loginTime').value = '';
     document.getElementById('loginTime').disabled = false;
@@ -151,23 +156,53 @@ function resetTracker() {
     currentTimeUpdateInterval = setInterval(setCurrentTime, 60000);
 }
 
-function showDailyLogPopup() {
-    const response = prompt('What did you do today?');
+function logActivityFromInput() {
+    const activityInput = document.getElementById('activityInput');
+    const activity = activityInput.value.trim();
     
-    if (response !== null && response.trim() !== '') {
-        const logEntry = {
-            date: new Date().toISOString().split('T')[0],
-            time: new Date().toLocaleTimeString(),
-            activity: response.trim()
-        };
-        
-        // Get existing logs
-        const existingLogs = JSON.parse(localStorage.getItem('dailyLogs') || '[]');
-        existingLogs.push(logEntry);
-        localStorage.setItem('dailyLogs', JSON.stringify(existingLogs));
-        
-        alert('Activity logged successfully!');
-        dailyLogsData = existingLogs;
+    if (!activity) {
+        alert('Please enter an activity before logging.');
+        return;
+    }
+    
+    const logEntry = {
+        date: new Date().toISOString().split('T')[0],
+        time: new Date().toLocaleTimeString(),
+        activity: activity
+    };
+    
+    // Get existing logs
+    const existingLogs = JSON.parse(localStorage.getItem('dailyLogs') || '[]');
+    existingLogs.push(logEntry);
+    localStorage.setItem('dailyLogs', JSON.stringify(existingLogs));
+    
+    alert('Activity logged successfully!');
+    dailyLogsData = existingLogs;
+    activityInput.value = '';
+    activityInput.focus();
+}
+
+function handleActivityKeypress(event) {
+    if (event.key === 'Enter') {
+        logActivityFromInput();
+    }
+}
+
+function showDailyLogPopup() {
+    // Legacy function - kept for compatibility
+    logActivityFromInput();
+}
+
+function toggleActivitySection() {
+    const activitySection = document.getElementById('activitySection');
+    const toggleBtn = document.getElementById('activityToggleBtn');
+    
+    if (activitySection.style.display === 'none') {
+        activitySection.style.display = 'block';
+        toggleBtn.style.display = 'none';
+    } else {
+        activitySection.style.display = 'none';
+        toggleBtn.style.display = 'block';
     }
 }
 
@@ -202,6 +237,16 @@ function exportToExcel() {
     document.body.removeChild(link);
     
     alert('Logs exported successfully!');
+}
+
+function resetActivities() {
+    const confirmReset = confirm('Are you sure you want to clear all logged activities? This cannot be undone.');
+    
+    if (confirmReset) {
+        localStorage.removeItem('dailyLogs');
+        dailyLogsData = [];
+        alert('All activities have been cleared!');
+    }
 }
 
 function setCurrentTime() {

@@ -49,13 +49,23 @@
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
             </div>
+            
+            <button class="reset-btn" onclick="resetTracker()" id="resetBtn" style="display: none; margin-top: 20px;">Reset</button>
 
-            <div style="display: flex; gap: 10px; margin-top: 20px;" id="actionButtons" style="display: none;">
-                <button onclick="showDailyLogPopup()" style="flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">Log Activity</button>
-                <button onclick="exportToExcel()" style="flex: 1; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">Export to CSV</button>
+            <button onclick="toggleActivitySection()" id="activityToggleBtn" style="display: none; width: 100%; margin-top: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">📝 Activity Logging</button>
+
+            <div class="activity-section" id="activitySection" style="display: none; margin-top: 30px;">
+                <h2 class="section-title">Activity Logging</h2>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="activityInput" placeholder="What did you do?" style="flex: 1; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 14px; transition: all 0.3s ease;" onkeypress="handleActivityKeypress(event)">
+                    <button onclick="logActivityFromInput()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 24px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Log</button>
+                </div>
+                <button onclick="resetActivities()" style="width: 100%; margin-top: 10px; background: #f5f5f5; color: #666; border: 2px solid #e0e0e0; padding: 12px 24px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Clear Activities</button>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button onclick="exportToExcel()" style="flex: 1; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; padding: 12px 24px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Export to CSV</button>
+                </div>
             </div>
 
-            <button class="reset-btn" onclick="resetTracker()" id="resetBtn" style="display: none;">Reset</button>
         </div>
 
         <footer class="footer">
