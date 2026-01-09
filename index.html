@@ -11,31 +11,43 @@
         <div class="card">
             <h1>Work Hours Tracker</h1>
             
-            <div class="input-section">
-                <label for="loginTime">Today's Login Time <span class="hint">(Click to change)</span></label>
+            <div class="input-section" id="inputSection">
+                <label for="loginTime">Login Time <span class="hint">(Click to change)</span></label>
                 <input type="time" id="loginTime" placeholder="HH:MM">
                 <button onclick="startTracking()">Start Tracking</button>
             </div>
 
             <div class="stats-section" id="statsSection" style="display: none;">
+                <div class="stat-card-half">
+                    <div class="stat-label">Login Time</div>
+                    <div class="stat-value" id="loginTimeDisplay">--:--</div>
+                </div>
+                <div class="stat-card-half">
+                    <div class="stat-label">Logout Time</div>
+                    <div class="stat-value" id="logoutTime">--:--</div>
+                </div>
                 <div class="stat-card">
                     <div class="stat-label">Time Elapsed</div>
                     <div class="stat-value" id="elapsed">0h 0m</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-label">Logout Time</div>
-                    <div class="stat-value" id="logoutTime">--:--</div>
+                    <div class="progress-bar elapsed-bar">
+                        <div class="progress-fill elapsed-fill" id="elapsedFill"></div>
+                    </div>
                 </div>
 
                 <div class="stat-card">
                     <div class="stat-label">Time Remaining</div>
                     <div class="stat-value" id="remaining">0h 0m</div>
+                    <div class="progress-bar remaining-bar">
+                        <div class="progress-fill remaining-fill" id="remainingFill"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="progress-bar" id="progressBar" style="display: none;">
-                <div class="progress-fill" id="progressFill"></div>
+            <div class="overall-progress" id="progressBar" style="display: none;">
+                <div class="progress-label">Overall Progress</div>
+                <div class="progress-bar-container">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
             </div>
 
             <button class="reset-btn" onclick="resetTracker()" id="resetBtn" style="display: none;">Reset</button>
