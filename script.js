@@ -10,19 +10,28 @@ function startTracking() {
     }
     
     loginTimeString = loginInput;
+    // Save to localStorage
+    localStorage.setItem('workTrackerLoginTime', loginInput);
+    localStorage.setItem('workTrackerStartDate', new Date().toDateString());
+    
+    displayTracking();
+    
+    // Start updating immediately and then every second
+    updateStats();
+    if (updateInterval) clearInterval(updateInterval);
+    updateInterval = setInterval(updateStats, 1000);
+}
+
+function displayTracking() {
     document.getElementById('statsSection').style.display = 'grid';
     document.getElementById('progressBar').style.display = 'block';
     document.getElementById('resetBtn').style.display = 'block';
     
     // Disable input and button during tracking
     document.getElementById('loginTime').disabled = true;
-    event.target.disabled = true;
-    event.target.style.opacity = '0.5';
-    
-    // Start updating immediately and then every second
-    updateStats();
-    if (updateInterval) clearInterval(updateInterval);
-    updateInterval = setInterval(updateStats, 1000);
+    const startBtn = document.querySelector('.input-section button');
+    startBtn.disabled = true;
+    startBtn.style.opacity = '0.5';
 }
 
 function updateStats() {
@@ -79,6 +88,10 @@ function resetTracker() {
     loginTimeString = null;
     if (updateInterval) clearInterval(updateInterval);
     
+    // Clear localStorage
+    localStorage.removeItem('workTrackerLoginTime');
+    localStorage.removeItem('workTrackerStartDate');
+    
     document.getElementById('statsSection').style.display = 'none';
     document.getElementById('progressBar').style.display = 'none';
     document.getElementById('resetBtn').style.display = 'none';
@@ -97,8 +110,26 @@ function resetTracker() {
     });
 }
 
-// Allow Enter key to start tracking
+// Initialize app on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if there's a saved login time
+    const savedLoginTime = localStorage.getItem('workTrackerLoginTime');
+    const savedStartDate = localStorage.getItem('workTrackerStartDate');
+    const currentDate = new Date().toDateString();
+    
+    // Resume tracking if login was from today
+    if (savedLoginTime && savedStartDate === currentDate) {
+        loginTimeString = savedLoginTime;
+        document.getElementById('loginTime').value = savedLoginTime;
+        displayTracking();
+        
+        // Start updating immediately and then every second
+        updateStats();
+        if (updateInterval) clearInterval(updateInterval);
+        updateInterval = setInterval(updateStats, 1000);
+    }
+    
+    // Allow Enter key to start tracking
     document.getElementById('loginTime').addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
             startTracking();
