@@ -50,6 +50,11 @@
                 </div>
             </div>
 
+            <div style="display: flex; gap: 10px; margin-top: 20px;" id="actionButtons" style="display: none;">
+                <button onclick="showDailyLogPopup()" style="flex: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">Log Activity</button>
+                <button onclick="exportToExcel()" style="flex: 1; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">Export to CSV</button>
+            </div>
+
             <button class="reset-btn" onclick="resetTracker()" id="resetBtn" style="display: none;">Reset</button>
         </div>
 

@@ -2,6 +2,7 @@ let loginTimeString = null;
 let updateInterval = null;
 let shiftEndNotified = false;
 let currentTimeUpdateInterval = null;
+let dailyLogsData = [];
 
 function startTracking() {
     const loginInput = document.getElementById('loginTime').value;
@@ -37,6 +38,7 @@ function displayTracking() {
     document.getElementById('progressBar').style.display = 'block';
     document.getElementById('resetBtn').style.display = 'block';
     document.getElementById('inputSection').style.display = 'none';
+    document.getElementById('actionButtons').style.display = 'flex';
 }
 
 function updateStats() {
@@ -81,7 +83,7 @@ function updateStats() {
     document.getElementById('loginTimeDisplay').textContent = loginTimeFormatted;
     document.getElementById('logoutTime').textContent = logoutTimeFormatted;
     document.getElementById('remaining').textContent = 
-        remainingMs > 0 ? `${remainingHours}h ${remainingMinutes}m` : 'Work shift ended!';
+        remainingMs > 0 ? `${remainingHours}h ${remainingMinutes}m` : 'Go Home!';
     
     // Update progress bars
     const totalMs = 9 * 60 * 60 * 1000; // 9 hours in milliseconds
@@ -128,6 +130,7 @@ function resetTracker() {
     document.getElementById('statsSection').style.display = 'none';
     document.getElementById('progressBar').style.display = 'none';
     document.getElementById('resetBtn').style.display = 'none';
+    document.getElementById('actionButtons').style.display = 'none';
     document.getElementById('inputSection').style.display = 'flex';
     document.getElementById('loginTime').value = '';
     document.getElementById('loginTime').disabled = false;
@@ -146,6 +149,59 @@ function resetTracker() {
     // Restart updating current time
     setCurrentTime();
     currentTimeUpdateInterval = setInterval(setCurrentTime, 60000);
+}
+
+function showDailyLogPopup() {
+    const response = prompt('What did you do today?');
+    
+    if (response !== null && response.trim() !== '') {
+        const logEntry = {
+            date: new Date().toISOString().split('T')[0],
+            time: new Date().toLocaleTimeString(),
+            activity: response.trim()
+        };
+        
+        // Get existing logs
+        const existingLogs = JSON.parse(localStorage.getItem('dailyLogs') || '[]');
+        existingLogs.push(logEntry);
+        localStorage.setItem('dailyLogs', JSON.stringify(existingLogs));
+        
+        alert('Activity logged successfully!');
+        dailyLogsData = existingLogs;
+    }
+}
+
+function exportToExcel() {
+    const logs = JSON.parse(localStorage.getItem('dailyLogs') || '[]');
+    
+    if (logs.length === 0) {
+        alert('No logs to export. Start logging activities first!');
+        return;
+    }
+    
+    // Create CSV content
+    let csvContent = 'Date,Time,Activity\n';
+    logs.forEach(log => {
+        const date = log.date || '';
+        const time = log.time || '';
+        const activity = `"${log.activity.replace(/"/g, '""')}"`;
+        csvContent += `${date},${time},${activity}\n`;
+    });
+    
+    // Create Blob and download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `daily-logs-${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    alert('Logs exported successfully!');
 }
 
 function setCurrentTime() {
