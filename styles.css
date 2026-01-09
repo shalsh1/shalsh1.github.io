@@ -50,6 +50,17 @@ label {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hint {
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: none;
+    color: #999;
+    letter-spacing: normal;
 }
 
 input[type="time"] {
@@ -59,12 +70,22 @@ input[type="time"] {
     font-size: 16px;
     transition: all 0.3s ease;
     font-family: 'Courier New', monospace;
+    cursor: pointer;
+    background-color: #fff;
+    color: #333;
+    min-height: 44px;
+}
+
+input[type="time"]:hover {
+    border-color: #667eea;
+    background-color: #f9f9ff;
 }
 
 input[type="time"]:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background-color: #f9f9ff;
 }
 
 button {
